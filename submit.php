@@ -49,6 +49,21 @@ if (isset($booked[$time_slot])) {
         "Sorry, <b>$time_slot</b> was just booked by someone else. Please pick another slot.");
 }
 
+// Per-user cooldown (4 hours between bookings)
+$storage_file = __DIR__ . "/orders.json";
+$orders = [];
+if (file_exists($storage_file)) {
+    $orders = json_decode(file_get_contents($storage_file), true);
+    if (!is_array($orders)) $orders = [];
+}
+if (isset($orders[$username])) {
+    $elapsed = time() - $orders[$username];
+    if ($elapsed < 4 * 60 * 60) {
+        $remaining = ceil((4 * 60 * 60 - $elapsed) / 60);
+        render_message("Booking Cooldown", "#e11d48", "⏳ Sorry @$username",
+            "You must wait <b>$remaining minutes</b> before booking another room.");
+    }
+}
 
 // Lock the slot
 $booked[$time_slot] = $username;
