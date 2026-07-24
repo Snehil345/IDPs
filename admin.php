@@ -2,8 +2,7 @@
 session_start();
 require_once __DIR__ . "/slots_list.php";
 
-// ⚠️ CHANGE THIS PASSWORD before uploading.
-$admin_password = "changeme123";
+$admin_password = "snehil";
 
 // --- Login handling ---
 if (isset($_POST['login_password'])) {
@@ -76,9 +75,7 @@ $booked = load_booked_slots();
 </head>
 <body>
 <div class="wrap">
-
 <?php if (!$is_logged_in): ?>
-
   <h2>Admin Login</h2>
   <div class="login-box">
     <?php if (!empty($login_error)): ?><p class="error"><?= htmlspecialchars($login_error) ?></p><?php endif; ?>
@@ -87,19 +84,15 @@ $booked = load_booked_slots();
       <button type="submit" class="login-btn">Login</button>
     </form>
   </div>
-
 <?php else: ?>
-
   <div class="top-bar">
     <h2 style="margin:0;">BGMI Room Slots</h2>
     <a class="logout-link" href="?logout=1">Logout</a>
   </div>
-
   <div class="panel">
     <form method="POST" onsubmit="return confirm('Reset ALL slots and cooldowns? This cannot be undone.');">
       <button type="submit" name="reset_all" value="1" class="reset-btn" style="width:100%;">🔄 Reset All Slots (Daily)</button>
     </form>
-
     <table>
       <tr><th>Slot</th><th>Status</th><th></th></tr>
       <?php foreach ($slots as $slot):
@@ -127,9 +120,7 @@ $booked = load_booked_slots();
       <?php endforeach; ?>
     </table>
   </div>
-
 <?php endif; ?>
-
 </div>
 </body>
 </html>
