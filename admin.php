@@ -1,10 +1,9 @@
-
 <?php
 session_start();
 require_once __DIR__ . "/slots_list.php";
 
 // ⚠️ CHANGE THIS PASSWORD before uploading.
-$admin_password = "ME";
+$admin_password = "changeme123";
 
 // --- Login handling ---
 if (isset($_POST['login_password'])) {
